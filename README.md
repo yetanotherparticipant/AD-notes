@@ -10,6 +10,8 @@
 
 ## Admin notes
 
+### Common
+
 ```bash
 mkdir -p /srv/git
 git init --bare /srv/git/ad.git
@@ -36,7 +38,7 @@ done
 EOF
 ```
 
-NFS
+### NFS
 
 server
 
@@ -56,4 +58,20 @@ client
 apt install nfs-common
 mkdir /mnt/nfs
 mount -t nfs vulnbox:/mnt/nfs /mnt/nfs
+```
+
+### Salt
+
+```bash
+sudo salt-call --local \
+  --id=vulnbox \
+  --file-root="$PWD/roots" \
+  --pillar-root="$PWD/pillar" \
+  state.show_top
+
+sudo salt-call --local \
+  --id=vulnbox \
+  --file-root="$PWD/roots" \
+  --pillar-root="$PWD/pillar" \
+  state.apply
 ```
